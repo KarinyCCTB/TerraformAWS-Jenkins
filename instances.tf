@@ -7,6 +7,14 @@ resource "aws_instance" "web1" {
   tags = {
     Name = "Production_Env1"
   }
+  user_data = <<-EOF
+	#!/bin/bash
+	sudo yum update -y 
+	sudo yum install -y httpd 
+	sudo systemctl start httpd 
+	sudo systemctl enable httpd 
+	echo "<html><body><h1>Production Env1 is Healthy</h1></body></html>" | sudo tee /var/www/html/index.html
+	EOF
 }
 
 resource "aws_instance" "web2" {
@@ -18,6 +26,14 @@ resource "aws_instance" "web2" {
   tags = {
     Name = "Production_Env2"
   }
+  user_data = <<-EOF
+	#!/bin/bash
+	sudo yum update -y 
+	sudo yum install -y httpd 
+	sudo systemctl start httpd 
+	sudo systemctl enable httpd 
+	echo "<html><body><h1>Production Env2 is Healthy</h1></body></html>" | sudo tee /var/www/html/index.html
+	EOF
 }
 
 resource "aws_instance" "jenkins" {
